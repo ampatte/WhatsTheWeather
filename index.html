@@ -7,9 +7,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>What's the Weather?</title>
 </head>
 <body>
+    <header>
+        <h1><strong>What's the Weather?</strong></h1>
+        <h3>Weather Dashboard</h3>
+    </header>
+
+        <label>Enter a City:</label>
+        <form method="GET">
+            <input type="text" id="city" autocomplete="city-name" />    
+            <input type="button" id="searchBtn">Search</button> 
+        </form>
+        
+    <p id="callOne"></p>
+    <p id="callTwo"></p>
+    
+    <div class="card" style="width: 18rem;">
+        
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        
+        <label id="forecast">Weather Conditions:</label>
+              
+            <label id="date"> </label>
+            <label id="temp">Temperature</label>
+            <label id="windSpeed">WindSpeed</label>
+            <label id="humidity">Humidity</label>
+        </div>
+    </div>
+    <!--Icons for sunny,rainy,cloudy-->
     <script src="script.js"></script>
 </body>
 </html>
