@@ -13,10 +13,8 @@ function citySearch() {
    fetch(firstCall) 
   .then((response) =>response.text())
   .then(data=> setCoordinates(data))
-  .then(data=> {console.log(data)})
-
-}
-document.getElementById("searchBtn").addEventListener("click",  citySearch);
+  }
+document.getElementById("searchBtn").addEventListener("click", citySearch);
 
 //display current and future weather conditions
 //&
@@ -29,21 +27,25 @@ function setCoordinates(mapData) {
 //lat & lon data= coordinates
     fetch(secondCall)
     .then((response)=> response.text())
-    .then(data=> setWeatherData(data));
-    console.log(mapData)
+    .then(data=> setWeatherData(data))
+    .then(console.log(coordinates))
 
     document.getElementById("callOne").innerHTML= mapData;
 }
-//setCoordinates(mapData)
+setCoordinates(mapData)
 //weather conditions include:
 //cityName,date,weatherIcon,temp,humidity,windSpeed
 function setWeatherData(forecastData){
+    var weatherData= JSON.parse(forecastData)
+   // var cityResult= city.normalize;
+    //var date= list.dt_txt;
+    
+document.getElementById("callTwo").innerHTML = forecastData
+.then(console.log(forecastData))    
+}
+setWeatherData(forecastData)
 
-var weatherData= JSON.parse(forecastData);
-document.getElementById("callTwo").innerHTML = forecastData;
-console.log(callTwo)
 //future 5day forecast includes:
 //date,weatherIcon,temp,windSpeed,humidity
-console.log("list")
+//console.log("list")
 //button/onclick city in searchHistory for current and future forecasts
-}
