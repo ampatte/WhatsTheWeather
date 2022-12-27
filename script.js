@@ -1,17 +1,21 @@
 var apiKey= `68ef797c869fb49c98d4912d6f16f681`;
 var city='';
-//var cityName= data.city.name;
-   
-/*var date= document.getElementById('date');
-var icon= document.getElementById('icon');
-var temp= document.getElementById('temp');
-var windSpeed= document.getElementById('windSpeed');
-var humidity=document.getElementById('humidity');*/
+
 //form inputs
 function citySearch() {
     var city= document.getElementById("city").value;
-    document.getElementById("city").innerHTML=city
     console.log(city)
+    /*(city=> cityBanner(city)) 
+    
+     (function cityBanner(){
+     var div= document.createElement("div")
+     div.classList.add("banner")
+     var cityHeading=
+     `<h2> ${city}</h2>`
+     div.innerHTML=cityHeading})*/
+    //document.getElementById("city").innerHTML=city
+    
+   
 //querycity search to obtain cordinates
     var firstCall= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     fetch(firstCall) 
@@ -32,19 +36,15 @@ function setCoordinates(data) {
         })
         .then(data=> setWeatherData(data))
         .then(console.log(coordinates)) 
-       
+      
+console.log(city) 
 }
- /* var cityHeading=
-     `<h2> ${city}</h2>`
-     var div= document.createElement("div")
-     div.classList.add("city")
-     div.innerHTML=city
-console.log(city)*/
+ 
+
 
 function setWeatherData(data){
    console.log(data) 
-
-   
+ 
     var forecast= document.getElementById("forecast")
         
     for (let i = 0; i < data.list.length; i++) {
@@ -54,8 +54,8 @@ function setWeatherData(data){
          console.log(listElement)    
        
         var date= listElement.dt_txt;
-        var pic= listElement.weather.icon;
-
+        var pic= listElement.weather[0].icon;
+        var description= listElement.weather[0].description  
         var temp= listElement.main.temp;
         var humidity= listElement.main.humidity;
         var windSpeed= listElement.wind.speed;
@@ -65,15 +65,21 @@ function setWeatherData(data){
         div.classList.add("container")
 
         var weatherCard=
-            `<ul>
-                <p id="date">Weather Forecast for: ${date}</p>
-                <img id="pic"/>
-                <p
-                <p id="temp">Temperature: ${temp}</p>
-                <p id="humidity">Humidity: ${humidity}</p>
-                <p id="windSpeed">WindSpeed: ${windSpeed}</p>
-                
-            </ul>`
+        `<div class="weatherCards">
+            <div class="card-group"> 
+                <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
+                class= "pic card-img-top"
+                alt= "description"/>
+                <ul>
+                <p id= "date">Weather Forecast for: ${date}</p>
+                <p id= "description">${description}</p>
+                <p id= "temp">Temperature: ${temp}</p>
+                <p id= "humidity">Humidity: ${humidity}</p>
+                <p id= "windSpeed">WindSpeed: ${windSpeed}</p>
+                </ul>
+            </div>
+        </div>`
+
         div.innerHTML=weatherCard
     
         forecast.appendChild(div)
