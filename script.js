@@ -5,27 +5,18 @@ var city='';
 function citySearch() {
     var city= document.getElementById("city").value;
     console.log(city)
-    /*(city=> cityBanner(city)) 
+    document.getElementById("city").innerHTML=city
     
-     (function cityBanner(){
-     var div= document.createElement("div")
-     div.classList.add("banner")
-     var cityHeading=
-     `<h2> ${city}</h2>`
-     div.innerHTML=cityHeading})*/
-    //document.getElementById("city").innerHTML=city
-    
-   
 //querycity search to obtain cordinates
     var firstCall= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     fetch(firstCall) 
         .then((response)=> response.text())
-        .then(data=> setCoordinates(data))
+        .then(mapData=> setCoordinates(mapData))
   }
 document.getElementById("searchBtn").addEventListener("click", citySearch);
 //plug in city coordinates to make 2nd API call
-function setCoordinates(data) {
-    var coordinates= JSON.parse(data);
+function setCoordinates(mapData) {
+    var coordinates= JSON.parse(mapData);
     var lat= coordinates[0].lat;
     var lon= coordinates[0].lon;
     var secondCall=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
@@ -34,25 +25,34 @@ function setCoordinates(data) {
         .then(function(response){
         return response.json()
         })
-        .then(data=> setWeatherData(data))
-        .then(console.log(coordinates)) 
-      
-console.log(city) 
+        .then(forecastData=> setWeatherData(forecastData))
+        .then(console.log(coordinates))  
 }
  
-
-
-function setWeatherData(data){
-   console.log(data) 
+function setWeatherData(forecastData){
+   console.log(forecastData) 
  
     var forecast= document.getElementById("forecast")
+    var cityBanner= document.getElementById("cityBanner")    
+
+
+    /*const cityElement = forecastData.city
+   console.log(forecastData)
+    var cityName= cityElement.city.name
+    var div= document.createElement("div")
+    div.classList.add("container")
+    var cityHeading=
+    `<div class="form-floating "> ${city}</div>`
+    div.innerHTML=cityHeading
+    cityBanner.appendChild(div)*/
+    
+
+    for (let i = 0; i < forecastData.list.length; i++) {
+        const listElement = forecastData.list[i];
         
-    for (let i = 0; i < data.list.length; i++) {
-        const listElement = data.list[i];
-        
-        if (listElement.dt_txt.includes("15:00:00")) {
+        if (listElement.dt_txt.includes("12:00:00")) {
          console.log(listElement)    
-       
+       var datetime= new Date(listElement.dt*1000)
         var date= listElement.dt_txt;
         var pic= listElement.weather[0].icon;
         var description= listElement.weather[0].description  
@@ -65,18 +65,21 @@ function setWeatherData(data){
         div.classList.add("container")
 
         var weatherCard=
-        `<div class="weatherCards">
-            <div class="card-group"> 
+        `
+        <div class="col 5">
+            <div class="card"> 
+                <div class= "card-body">
+               <h4 class= "card-title ">${datetime.toDateString()}</h4>
+                
                 <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
-                class= "pic card-img-top"
+                class= "card-img-top"
                 alt= "description"/>
-                <ul>
-                <p id= "date">Weather Forecast for: ${date}</p>
                 <p id= "description">${description}</p>
                 <p id= "temp">Temperature: ${temp}</p>
-                <p id= "humidity">Humidity: ${humidity}</p>
                 <p id= "windSpeed">WindSpeed: ${windSpeed}</p>
-                </ul>
+                <p id= "humidity">Humidity: ${humidity}%</p>
+                
+                </div>
             </div>
         </div>`
 
@@ -85,42 +88,16 @@ function setWeatherData(data){
         forecast.appendChild(div)
         }
     }
-   
-     
-}    
-    /*date.innerHTML= dateValue;
-    pic.innerHTML= picValue;
-    temp.innerHTML= tempValue;
-    windSpeed.innerHTML= windSpeedValue;
-    humidity.innerHTML= humidityValue;*/
-    
+}        
     /*for(var i= 0; i < data.length; i++) {
         var date= document.createElement('p')
         date.textContent= data[i].list.dt_txt;
         forecastContainer.append(date);*/
-
-   
-
-//display current and future weather conditions
-//weather conditions include:cityName,date,weatherIcon,temp,humidity,windSpeed
-
-
-/*.then(function displayForecast(forecastData) {
-    
-    
-            //var date= document.createElement("li");
-        
-       
+/*.then(function displayForecast(forecastData) {    
+            //var date= document.createElement("li");      
         list.dt.textContent= forecastArray[i].description;
-        date.appendChild(list.dt);       //.list[0];element = array[index];
-    }
-     console.log(date)
-    var = ;
-    var pic= list.weather.icon;
-    var temp= list.main.temp;
-    var windSpeed= list.wind.speed;
-    var humidity= list.main.humidity
-    var forecast= document.getElementById("forecast");
+        date.appendChild(list.dt);
+        //.list[0];element = array[index];
 })//city search history is saved in local storage
 //future 5day forecast includes:
 //date,weatherIcon,temp,windSpeed,humidity
