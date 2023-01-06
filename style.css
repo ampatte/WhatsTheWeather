@@ -8,27 +8,25 @@
     border-radius: 5px;
     background-color: rgb(102, 163, 232);
 }
+*/
+.btn{
 
-.button{
-height: 50px;
-width: 50;
-}*/
-
-
-.nav{
-    display: flex;
-    background-color: rgb(203, 203, 255);
-    
 }
 
+
+
+
+
 .input{
-    align-items: right ;
+    float: right ;
 }
 .container{
    
     border-width: 4em;
-    padding: 20px;
-    margin: 20px;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 40px;
+    
 }
 #cityBanner{
 
@@ -36,9 +34,9 @@ width: 50;
     
    
 
-   .row{
+   .card{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    direction: column;
+    direction: row;
     flex-direction: column;
     border-style: solid;
     border-radius: 1em;
@@ -46,8 +44,8 @@ width: 50;
     border-color: lightgrey;
     border-width: 2px;
      border-color: black;
-   
-    width:20vw
+    width:16vw;
+margin:1px
 }
 
 @media screen and (max-width: 768px) {
