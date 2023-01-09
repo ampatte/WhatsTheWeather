@@ -9,47 +9,48 @@
     background-color: rgb(102, 163, 232);
 }
 */
+
 .btn{
 
 }
 
-
-
-
-
 .input{
     float: right ;
 }
+
+.nav{
+    padding: 10px;
+    background-color: rgb(36, 36, 250);
+}
+
 .container{
    
     border-width: 4em;
     padding: 10px;
     margin: 10px;
     margin-top: 40px;
-    
-}
+    }
+
 #cityBanner{
 
 }
     
-   
-
    .card{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     direction: row;
     flex-direction: column;
     border-style: solid;
     border-radius: 1em;
-    background-color: rgb(203, 203, 255);
+    background-color:  rgb(211, 225, 245);
     border-color: lightgrey;
     border-width: 2px;
-     border-color: black;
+    border-color: black;
     width:16vw;
-margin:1px
+    margin:1px
 }
 
 @media screen and (max-width: 768px) {
-    weatherCards
+    weatherCard
      {
       flex-direction: row;
     }
