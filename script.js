@@ -5,6 +5,7 @@ function citySearch() {
     var city= document.getElementById("city").value;
     console.log(city)
     document.getElementById("city").innerHTML=city
+    
 //querycity search to obtain cordinates
     var firstCall= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     fetch(firstCall) 
@@ -12,6 +13,7 @@ function citySearch() {
         .then(mapData=> setCoordinates(mapData))
 }
 document.getElementById("searchBtn").addEventListener("click", citySearch);
+
 //plug in city coordinates to make 2nd API call
 function setCoordinates(mapData) {
     var coordinates= JSON.parse(mapData);
@@ -27,8 +29,6 @@ function setCoordinates(mapData) {
         .then(console.log(coordinates))  
 }
  
- var cityBanner= document.getElementById("cityBanner") 
-
 //display 5 day forecast
  function weatherData(forecastData){
    console.log(forecastData)  
@@ -57,7 +57,7 @@ function setCoordinates(mapData) {
                 class= "card-img-top"
                 alt= "description"/>
                 <p id= "description">${description}</p>
-                <p id= "temp">Temperature: ${temp}</p>
+                <p id= "temp">Temperature: ${temp}°</p>
                 <p id= "windSpeed">WindSpeed: ${windSpeed}</p>
                 <p id= "humidity">Humidity: ${humidity}%</p>`
 
