@@ -3,7 +3,6 @@ var city='';
 //form inputs
 function citySearch() {
     var city= document.getElementById("city").value;
-    console.log(city)
     document.getElementById("city").innerHTML=city
     
 //querycity search to obtain cordinates
@@ -11,6 +10,7 @@ function citySearch() {
     fetch(firstCall) 
         .then((response)=> response.text())
         .then(mapData=> setCoordinates(mapData))
+
 }
 document.getElementById("searchBtn").addEventListener("click", citySearch);
 
@@ -26,6 +26,7 @@ function setCoordinates(mapData) {
         return response.json()
         })
         .then(forecastData=> weatherData(forecastData))
+        .then(forecastData=> saveCity(forecastData))
         .then(console.log(coordinates))  
 }
  
@@ -46,18 +47,19 @@ function setCoordinates(mapData) {
         var temp= listElement.main.temp;
         var humidity= listElement.main.humidity;
         var windSpeed= listElement.wind.speed;
-        
+        var cityName= forecastData.city.name
         var div= document.createElement("div")
 
         div.classList.add("card")
 
         var weatherCard=
             `<h4 class= "card-title ">${datetime.toDateString()}</h4>
+            <h3 class= "cityName"> ${cityName}<h3>
             <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
                 class= "card-img-top"
                 alt= "description"/>
                 <p id= "description">${description}</p>
-                <p id= "temp">Temperature: ${temp}°</p>
+                <p id= "temp">Temperature: ${temp}°F</p>
                 <p id= "windSpeed">WindSpeed: ${windSpeed}</p>
                 <p id= "humidity">Humidity: ${humidity}%</p>`
 
@@ -70,19 +72,24 @@ function setCoordinates(mapData) {
  /* var  storageItem = JSON.parse(window.localStorage.getItem("workTime"))
  console.log(storageItem)
  document.getElementById("workDay").innerText = (dayjs.extend());*/
-function saveCity(city) {
+function saveCity(forecastData) {
+    console.log(forecastData)
     var city= document.getElementById("city").value;
     const cities= ""
     localStorage.setItem('city', JSON.stringify (cities));
     for (var i = 0; i < localStorage.length; i++)  console.log( localStorage.key(i) +" has value " + localStorage[localStorage.key(i)] )
 }    
 
-function getCity(city) {
+function getCity(weatherData) {
     const cityData= JSON.parse(localStorage.getItem ('cities'));
 }
+
 localStorage.removeItem('myKey');
 localStorage.clear();   
 
+msg.textContent = "";
+form.reset();
+input.focus()
 /*for(var i= 0; i < data.length; i++) {
         var date= document.createElement('p')
         date.textContent= data[i].list.dt_txt;

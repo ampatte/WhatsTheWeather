@@ -28,8 +28,8 @@
     display: contents-center;
     float:right;
     border-width: 4em;
-    padding: 10px;
-    margin: 20px;
+    padding: 5px;
+    margin: 10px;
     margin-top: 40px;
     }
 
@@ -43,7 +43,7 @@
     border-color:rgb(36, 36, 250);
     box-shadow: 5em;
     padding: 10px;
-    margin: 17px;
+    margin: 5px;
 }
 
 @media screen and (max-width: 900px) {
