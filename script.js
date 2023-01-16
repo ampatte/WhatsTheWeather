@@ -1,16 +1,40 @@
 var apiKey= `68ef797c869fb49c98d4912d6f16f681`;
 var city='';
+dayjs().format();
+var now= dayjs();
+
 //form inputs
 function citySearch() {
     var city= document.getElementById("city").value;
     document.getElementById("city").innerHTML=city
+
     
-//querycity search to obtain cordinates
+    const cityArray = []; 
+ 
+    for (let i = 0; i < Array.length; i++) { 
+  // Get user input 
+  var city= document.getElementById("city").value; 
+ 
+  // Add the input to the array 
+  cityArray.push(document.getElementById("city").value); 
+
+} 
+ const cityArrayFromLocalStorage = localStorage.getItem('cityArray')
+    if (cityArrayFromLocalStorage && cityArrayFromLocalStorage.length) {
+    const cityArray = JSON.parse(cityArrayFromLocalStorage)
+    }
+console.log(cityArray);
+    localStorage.setItem('cityArray', JSON.stringify (cityArray));
+    for (var i = 0; i < localStorage.length; i++)  console.log( localStorage.key(i) +" has value " + localStorage[localStorage.key(i)] )
+    console.log(city)
+   
+    
+
+    //querycity search to obtain cordinates
     var firstCall= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     fetch(firstCall) 
         .then((response)=> response.text())
         .then(mapData=> setCoordinates(mapData))
-
 }
 document.getElementById("searchBtn").addEventListener("click", citySearch);
 
@@ -20,13 +44,13 @@ function setCoordinates(mapData) {
     var lat= coordinates[0].lat;
     var lon= coordinates[0].lon;
     var secondCall=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
-//lat & lon data= coordinates
+    //lat & lon data= coordinates
     fetch(secondCall)
         .then(function(response){
         return response.json()
         })
         .then(forecastData=> weatherData(forecastData))
-        .then(forecastData=> saveCity(forecastData))
+       // .then(forecastData=> saveCity(forecastData))
         .then(console.log(coordinates))  
 }
  
@@ -54,13 +78,12 @@ function setCoordinates(mapData) {
 
         var weatherCard=
             `<h4 class= "card-title ">${datetime.toDateString()}</h4>
-            <h3 class= "cityName"> ${cityName}<h3>
             <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
                 class= "card-img-top"
                 alt= "description"/>
                 <p id= "description">${description}</p>
                 <p id= "temp">Temperature: ${temp}°F</p>
-                <p id= "windSpeed">WindSpeed: ${windSpeed}</p>
+                <p id= "windSpeed">WindSpeed: ${windSpeed}mph</p>
                 <p id= "humidity">Humidity: ${humidity}%</p>`
 
         div.innerHTML=weatherCard
@@ -72,35 +95,11 @@ function setCoordinates(mapData) {
  /* var  storageItem = JSON.parse(window.localStorage.getItem("workTime"))
  console.log(storageItem)
  document.getElementById("workDay").innerText = (dayjs.extend());*/
-function saveCity(forecastData) {
+/*function saveCity(forecastData) {
     console.log(forecastData)
     var city= document.getElementById("city").value;
     const cities= ""
     localStorage.setItem('city', JSON.stringify (cities));
     for (var i = 0; i < localStorage.length; i++)  console.log( localStorage.key(i) +" has value " + localStorage[localStorage.key(i)] )
 }    
-
-function getCity(weatherData) {
-    const cityData= JSON.parse(localStorage.getItem ('cities'));
-}
-
-localStorage.removeItem('myKey');
-localStorage.clear();   
-
-msg.textContent = "";
-form.reset();
-input.focus()
-/*for(var i= 0; i < data.length; i++) {
-        var date= document.createElement('p')
-        date.textContent= data[i].list.dt_txt;
-        forecastContainer.append(date);*/
-/*.then(function displayForecast(forecastData) {    
-            //var date= document.createElement("li");      
-        list.dt.textContent= forecastArray[i].description;
-        date.appendChild(list.dt);
-        //.list[0];element = array[index];
-})//city search history is saved in local storage
-//future 5day forecast includes:
-//date,weatherIcon,temp,windSpeed,humidity
-//console.log("list")
-//button/onclick city in searchHistory for current and future forecasts*/
+*/
