@@ -1,7 +1,5 @@
 var apiKey= `68ef797c869fb49c98d4912d6f16f681`;
 var city='';
-dayjs().format();
-var now= dayjs();
 
 //form inputs
 function citySearch() {
