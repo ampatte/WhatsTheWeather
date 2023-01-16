@@ -1,5 +1,6 @@
 # WhatsTheWeather
 https://github.com/ampatte/WhatsTheWeather
+
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   ## Description
@@ -18,7 +19,7 @@ https://github.com/ampatte/WhatsTheWeather
 
   ## Usage
   This project was created for an assignment. It will be used to check weather forecasts. It is a quick and easy way to check the weather before planning for future events.
-  
+
 Acceptance Criteria
   - GIVEN a weather dashboard with form inputs
   - WHEN I search for a city
