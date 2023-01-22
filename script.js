@@ -1,6 +1,12 @@
 var apiKey= `68ef797c869fb49c98d4912d6f16f681`;
 var city='';
-
+//use this to pull the current date
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date+' '+time;
+ 
+console.log(dateTime)
 //form inputs
 function citySearch() {
     var city= document.getElementById("city").value;
@@ -26,8 +32,6 @@ console.log(cityArray);
     for (var i = 0; i < localStorage.length; i++)  console.log( localStorage.key(i) +" has value " + localStorage[localStorage.key(i)] )
     console.log(city)
    
-    
-
     //querycity search to obtain cordinates
     var firstCall= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
     fetch(firstCall) 
@@ -48,20 +52,59 @@ function setCoordinates(mapData) {
         return response.json()
         })
         .then(forecastData=> weatherData(forecastData))
-       // .then(forecastData=> saveCity(forecastData))
+        .then(forecastData=> currentWeather(forecastData))
         .then(console.log(coordinates))  
 }
- 
+ function currentWeather(forecastData) {
+
+     
+   console.log(forecastData) 
+ }
 //display 5 day forecast
  function weatherData(forecastData){
-   console.log(forecastData)  
+   var weatherNow= document.getElementById("weatherNow")
+   var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    var nowHour = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours();
+    console.log(nowHour)
 
-    var forecast= document.getElementById("forecast")
+console.log (forecastData)
+
+    var forecast= document.getElementById("weatherNow")
 
     for (let i = 0; i < forecastData.list.length; i++) {
         const listElement = forecastData.list[i];
-        
-        if (listElement.dt_txt.includes("12:00:00")) {console.log(listElement)    
+       
+        if (nowHour<=listElement.dt_txt) {console.log(listElement)
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var dateTime = date+' '+time;
+        var cityName= forecastData.city.name
+
+        div.classList.add("card")
+
+        var currentCard=
+            `<h4 class= "card-title ">${datetime.toDateString()}</h4>
+            <p id= "city">${cityName}
+            <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
+                class= "card-img-top"
+                alt= "description"/>
+                <p id= "description">${description}</p>
+                <p id= "temp">Temperature: ${temp}°F</p>
+                <p id= "windSpeed">WindSpeed: ${windSpeed}mph</p>
+                <p id= "humidity">Humidity: ${humidity}%</p>`
+
+        div.innerHTML=currentCard
+    
+        weatherNow.appendChild(div)
+
+        }
+            var forecast= document.getElementById("forecast")
+
+        if (listElement.dt_txt.includes("15:00:00")) {console.log(listElement)    
         var datetime= new Date(listElement.dt*1000)
         var date= listElement.dt_txt;
         var pic= listElement.weather[0].icon;
@@ -69,7 +112,7 @@ function setCoordinates(mapData) {
         var temp= listElement.main.temp;
         var humidity= listElement.main.humidity;
         var windSpeed= listElement.wind.speed;
-        var cityName= forecastData.city.name
+        
         var div= document.createElement("div")
 
         div.classList.add("card")

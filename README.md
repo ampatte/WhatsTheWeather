@@ -1,5 +1,5 @@
 # WhatsTheWeather
-https://github.com/ampatte/WhatsTheWeather
+https://ampatte.github.io/WhatsTheWeather/
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
