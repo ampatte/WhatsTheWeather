@@ -13,16 +13,7 @@ console.log(dateTime);
 function citySearch() {
   var city = document.getElementById("city").value;
   document.getElementById("city").innerHTML = city;
-var firstCall = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
-  var secondCall = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
-  fetch(firstCall)
-    .then((response) => response.text())
-    .then((mapData) => setCoordinates(mapData));
-
-  fetch(secondCall)
-    .then((response) => response.json())
-    .then((currentData) => currentWeather(currentData));
   const cityArray = [];
 
   for (let i = 0; i < Array.length; i++) {
@@ -40,7 +31,7 @@ var firstCall = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1
     console.log(cityArray);
 
   localStorage.setItem("cityArray", JSON.stringify(cityArray));
-
+  
   for (var i = 0; i < localStorage.length; i++)
     console.log(
       localStorage.key(i) + " has value " + localStorage[localStorage.key(i)]
@@ -48,7 +39,16 @@ var firstCall = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1
     console.log(city);
 
   //querycity search to obtain cordinates
-  
+  var firstCall = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+  var secondCall = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+
+  fetch(firstCall)
+    .then((response) => response.text())
+    .then((mapData) => setCoordinates(mapData));
+
+  fetch(secondCall)
+    .then((response) => response.json())
+    .then((currentData) => currentWeather(currentData));
 }
 document.getElementById("searchBtn").addEventListener("click", citySearch);
 
@@ -74,7 +74,7 @@ function currentWeather(currentData) {
   // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   // var dateTime = date+' '+time;
   // var nowHour = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()+' '+today.getHours();
- // console.log(nowHour);
+ 
   var cityName = currentData.name;
   var datetime = new Date();
   var pic = currentData.weather[0].icon;
@@ -85,15 +85,26 @@ function currentWeather(currentData) {
   var div = document.createElement("div");
   div.classList.add("container");
 
-  var currentCard = `<h4 class= "card-title ">${datetime.toDateString()}</h4>
-            <p id= "city">${cityName}
-            <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
-                class= "card-img-top"
-                alt= "description"/>
-                <p id= "description">${description}</p>
-                <p id= "temp">Temperature: ${temp}°F</p>
-                <p id= "windSpeed">WindSpeed: ${windSpeed}mph</p>
-                <p id= "humidity">Humidity: ${humidity}%</p>`;
+  var currentCard = `<div class="container my-5">
+  <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+    <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+    <h4 class= "card-title ">${datetime.toDateString()}</h4>
+      <h1 class="display-4 fw-bold lh-1">${cityName}</h1>
+      <img src= "http://openweathermap.org/img/wn/${pic}@4x.png"
+      class= "card-img-top"
+      alt= "description"/>
+      <p class="lead">${temp}°F</p>
+      <p class="lead">${windSpeed}</p>
+      <p class="lead">${humidity}%</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+        <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+      </div>
+    </div>
+    <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+        <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720">
+    </div>
+  </div>`
 
   div.innerHTML = currentCard;
 
