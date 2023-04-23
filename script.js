@@ -15,7 +15,12 @@ function showCities() {
   for (let index = 0; index <cityArray.length; index++) {
     const city = cityArray[index];
     console.log("city", city)
+    
+    cityBtn += `<button value="${city}" "getWeather('${city}')">(${city})</button>`; document.getElementById("cityBtn").innerHTML = cityBtn;
+    // div.cityList.add("button");
   }
+  return cityArray
+ // .then((cityArray) => setButtons(cityArray));
 }
 showCities()
 
@@ -23,7 +28,7 @@ showCities()
 function citySearch() {
   var city = document.getElementById("city").value;
   document.getElementById("city").innerHTML = city;
-  document.getElementById("city").setAttribute("hidden", "hidden")
+  //document.getElementById("city").setAttribute("hidden", "hidden")
 
   const cityArrayFromLocalStorage = localStorage.getItem("cityArray");
   const cityArray = JSON.parse(cityArrayFromLocalStorage) || [];
