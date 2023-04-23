@@ -1,8 +1,8 @@
 # WhatsTheWeather
 
-Github repo: https://github.com/ampatte/WhatsTheWeather
+[Github repo](https://github.com/ampatte/WhatsTheWeather)
 
-Deployed app: https://ampatte.github.io/WhatsTheWeather
+[Deployed app](https://ampatte.github.io/WhatsTheWeather)
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
