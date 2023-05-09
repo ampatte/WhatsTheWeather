@@ -1,3 +1,9 @@
+body{
+    background-image: url("./Assets/sky\'s_the_limit.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
 .btn{
     background-color: rgb(36, 36, 250);
 }
